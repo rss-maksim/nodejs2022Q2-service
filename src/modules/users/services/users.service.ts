@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { NotFoundException } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
-import * as bcrypt from 'bcrypt';
+
 import { CreateUserDto, UpdatePasswordDto } from '../dto';
 import { User } from '../models/User.model';
 import { UsersRepository } from '../users.repository';

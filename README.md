@@ -1,9 +1,15 @@
 # Home Library Service
 
-## Prerequisites
+## Steps to run and check service locally
 
-- Git - [Download & Install Git](https://git-scm.com/downloads).
-- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
+1. Clone repository `git clone https://github.com/rss-maksim/nodejs2022Q2-service.git`
+2. Fetch feature branch `feat/basic-rest-service` by `git fetch origin feat/basic-rest-service`
+3. Switch to feature branch by `git checkout feat/basic-rest-service`
+4. Install dependencies `npm i`
+5. Run service locally by `npm start`
+6. Open `Open API` documentation in the browser [http://localhost:4000/doc](http://localhost:4000/doc/)
+7. Send the following requests using Swagger or Postman (to simplify process you might import the collection in Postman which is placed in repo in the folder named `collections`)
+8. To make sure everything's ok you can run tests `npm run test`
 
 ## Downloading
 
