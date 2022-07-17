@@ -28,11 +28,13 @@ export class UsersRepository {
   }
 
   async create(createUserDto: CreateUserDto): Promise<Partial<User>> {
+    const timestamp = Date.now();
     const newUser = {
       ...createUserDto,
       password: await UsersRepository.hashPassword(createUserDto.password),
       id: uuidv4(),
-      createdAt: Date.now(),
+      createdAt: timestamp,
+      updatedAt: timestamp,
       version: 1,
     };
     this.users = [...this.users, newUser];
@@ -52,7 +54,12 @@ export class UsersRepository {
     const password = await UsersRepository.hashPassword(
       updatePasswordDto.newPassword,
     );
-    const updatedUser = { ...user, password, version: user.version + 1 };
+    const updatedUser = {
+      ...user,
+      password,
+      version: user.version + 1,
+      updatedAt: Date.now(),
+    };
     this.users = this.users.map((user) =>
       user.id === id ? updatedUser : user,
     );

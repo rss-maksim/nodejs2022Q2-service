@@ -56,6 +56,24 @@ export class TracksRepository {
     this.tracks = this.tracks.filter((user) => user.id !== id);
   }
 
+  async resetAlbumIdField(albumId: string): Promise<void> {
+    this.tracks = this.tracks.map((track) => {
+      if (track.albumId === albumId) {
+        return { ...track, albumId: null };
+      }
+      return track;
+    });
+  }
+
+  async resetArtistIdField(artistId: string): Promise<void> {
+    this.tracks = this.tracks.map((track) => {
+      if (track.artistId === artistId) {
+        return { ...track, artistId: null };
+      }
+      return track;
+    });
+  }
+
   async findOne(id: string) {
     const track = this.tracks.find((track) => track.id === id);
     if (!track) {

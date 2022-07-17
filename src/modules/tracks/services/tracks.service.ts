@@ -31,4 +31,12 @@ export class TracksService {
   async delete(id: string): Promise<void> {
     return this.tracksRepository.delete(id);
   }
+
+  async resetAlbumIdField(albumId: string) {
+    return this.tracksRepository.resetAlbumIdField(albumId);
+  }
+
+  async resetArtistIdField(artistId: string) {
+    return this.tracksRepository.resetArtistIdField(artistId);
+  }
 }

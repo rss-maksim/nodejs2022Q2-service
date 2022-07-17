@@ -63,4 +63,13 @@ export class AlbumsRepository {
     }
     return album;
   }
+
+  async resetArtistIdField(artistId: string): Promise<void> {
+    this.albums = this.albums.map((album) => {
+      if (album.artistId === artistId) {
+        return { ...album, artistId: null };
+      }
+      return album;
+    });
+  }
 }

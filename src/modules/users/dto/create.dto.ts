@@ -5,7 +5,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   login: string;
 
-  @Length(8)
+  @Length(4)
   @IsNotEmpty()
   password: string;
 }
