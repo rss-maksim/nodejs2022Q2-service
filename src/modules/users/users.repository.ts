@@ -4,10 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { omit } from 'lodash';
-
-import { User } from './models/User.model';
-import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
+import * as bcrypt from 'bcrypt';
+
+import { User } from './models';
 import { CreateUserDto, UpdatePasswordDto } from './dto';
 
 @Injectable()

@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { omit } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Track } from './models';
-import { v4 as uuidv4 } from 'uuid';
 import { TrackDto } from './dto';
 
 @Injectable()
