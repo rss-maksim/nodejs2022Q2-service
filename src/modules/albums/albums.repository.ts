@@ -4,18 +4,26 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Album } from './models';
 import { AlbumDto } from './dto';
+import AlbumsStore from './store/AlbumsStore';
 
 @Injectable()
 export class AlbumsRepository {
-  private albums: Album[] = [];
   static excludedFields: string[] = [];
+
+  get albums(): Album[] {
+    return AlbumsStore.getAlbums();
+  }
+
+  set albums(tracks: Album[]) {
+    AlbumsStore.setAlbums(tracks);
+  }
 
   async create(albumDto: AlbumDto): Promise<Partial<Album>> {
     const newAlbum = {
       ...albumDto,
       id: uuidv4(),
     };
-    this.albums.push(newAlbum);
+    this.albums = [...this.albums, newAlbum];
 
     return omit(newAlbum, AlbumsRepository.excludedFields);
   }
@@ -30,8 +38,12 @@ export class AlbumsRepository {
     return omit(updatedAlbum, AlbumsRepository.excludedFields);
   }
 
-  async findAll() {
+  async findAll(): Promise<Album[]> {
     return this.albums;
+  }
+
+  async findMany(ids: string[]): Promise<Album[]> {
+    return this.albums.filter((album) => ids.includes(album.id));
   }
 
   async findOneById(id: string): Promise<Partial<Album>> {

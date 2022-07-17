@@ -4,18 +4,27 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Artist } from './models';
 import { ArtistDto } from './dto';
+import ArtistsStore from './store/ArtistsStore';
 
 @Injectable()
 export class ArtistsRepository {
-  private artists: Artist[] = [];
   static excludedFields: string[] = [];
+
+  get artists(): Artist[] {
+    return ArtistsStore.getArtists();
+  }
+
+  set artists(tracks: Artist[]) {
+    ArtistsStore.setArtists(tracks);
+  }
 
   async create(artistDto: ArtistDto): Promise<Partial<Artist>> {
     const newArtist = {
       ...artistDto,
       id: uuidv4(),
     };
-    this.artists.push(newArtist);
+
+    this.artists = [...this.artists, newArtist];
 
     return omit(newArtist, ArtistsRepository.excludedFields);
   }
@@ -32,6 +41,10 @@ export class ArtistsRepository {
 
   async findAll() {
     return this.artists;
+  }
+
+  async findMany(ids: string[]): Promise<Artist[]> {
+    return this.artists.filter((artist) => ids.includes(artist.id));
   }
 
   async findOneById(id: string): Promise<Partial<Artist>> {

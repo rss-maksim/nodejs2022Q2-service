@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ArtistDto } from '../dto';
 import { Artist } from '../models';
 import { ArtistsRepository } from '../artists.repository';
+import { Album } from '../../albums/models';
 
 @Injectable()
 export class ArtistsService {
@@ -18,6 +19,10 @@ export class ArtistsService {
 
   async findAll(): Promise<Artist[]> {
     return this.artistsRepository.findAll();
+  }
+
+  async findMany(ids: string[]): Promise<Artist[]> {
+    return this.artistsRepository.findMany(ids);
   }
 
   async findOneById(id: string): Promise<Partial<Artist>> {

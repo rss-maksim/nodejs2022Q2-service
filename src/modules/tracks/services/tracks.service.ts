@@ -20,6 +20,10 @@ export class TracksService {
     return this.tracksRepository.findAll();
   }
 
+  async findMany(ids: string[]): Promise<Track[]> {
+    return this.tracksRepository.findMany(ids);
+  }
+
   async findOneById(id: string): Promise<Partial<Track>> {
     return this.tracksRepository.findOneById(id);
   }

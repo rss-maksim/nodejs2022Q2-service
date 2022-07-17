@@ -9,11 +9,19 @@ import * as bcrypt from 'bcrypt';
 
 import { User } from './models';
 import { CreateUserDto, UpdatePasswordDto } from './dto';
+import UsersStore from './store/UsersStore';
 
 @Injectable()
 export class UsersRepository {
-  private users: User[] = [];
   static excludedFields: string[] = ['password'];
+
+  get users(): User[] {
+    return UsersStore.getUsers();
+  }
+
+  set users(tracks: User[]) {
+    UsersStore.setUsers(tracks);
+  }
 
   static async hashPassword(password: string) {
     return bcrypt.hash(password, 10);
@@ -27,7 +35,7 @@ export class UsersRepository {
       createdAt: Date.now(),
       version: 1,
     };
-    this.users.push(newUser);
+    this.users = [...this.users, newUser];
 
     return omit(newUser, UsersRepository.excludedFields);
   }

@@ -4,18 +4,26 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Track } from './models';
 import { TrackDto } from './dto';
+import tracksStore from './store/TracksStore';
 
 @Injectable()
 export class TracksRepository {
-  private tracks: Track[] = [];
   static excludedFields: string[] = [];
+
+  get tracks(): Track[] {
+    return tracksStore.getTracks();
+  }
+
+  set tracks(tracks: Track[]) {
+    tracksStore.setTracks(tracks);
+  }
 
   async create(trackDto: TrackDto): Promise<Partial<Track>> {
     const newTrack = {
       ...trackDto,
       id: uuidv4(),
     };
-    this.tracks.push(newTrack);
+    this.tracks = [...this.tracks, newTrack];
 
     return omit(newTrack, TracksRepository.excludedFields);
   }
@@ -30,8 +38,12 @@ export class TracksRepository {
     return omit(updatedTrack, TracksRepository.excludedFields);
   }
 
-  async findAll() {
+  async findAll(): Promise<Track[]> {
     return this.tracks;
+  }
+
+  async findMany(ids: string[]): Promise<Track[]> {
+    return this.tracks.filter((track) => ids.includes(track.id));
   }
 
   async findOneById(id: string): Promise<Partial<Track>> {
