@@ -23,7 +23,7 @@
     "docker:compose:down": "docker compose down --volumes",
     "docker:image": "docker image ls",
     "docker-image:remove": "docker rmi $(docker images -a -q)",
-    "docker:scan": "docker scan nodejs2022q2-service_nest-api && docker scan nodejs2022q2-service_postgres",
+    "docker:scan": "docker scan nodejs2022q2-service_node && docker scan nodejs2022q2-service_postgres",
     "container:list": "docker ps"
   },
   "dependencies": {
