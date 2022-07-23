@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 
 import { AlbumDto } from './dto';
-import { AlbumsService } from './services';
+import { AlbumsService } from './albums.service';
 import { Album } from './models';
 
 @Controller('album')
@@ -40,7 +40,7 @@ export class AlbumsController {
   async getById(
     @Param('id', new ParseUUIDPipe()) id: string,
   ): Promise<Partial<Album>> {
-    return this.albumsService.findOneById(id);
+    return this.albumsService.findOne(id);
   }
 
   @Delete(':id')

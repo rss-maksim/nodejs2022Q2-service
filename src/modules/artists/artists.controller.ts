@@ -10,7 +10,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ArtistDto } from './dto';
-import { ArtistsService } from './services';
+import { ArtistsService } from './artists.service';
 import { Artist } from './models';
 
 @Controller('artist')
@@ -39,7 +39,7 @@ export class ArtistsController {
   async getById(
     @Param('id', new ParseUUIDPipe()) id: string,
   ): Promise<Partial<Artist>> {
-    return this.artistsService.findOneById(id);
+    return this.artistsService.findOne(id);
   }
 
   @Delete(':id')
