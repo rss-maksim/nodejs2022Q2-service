@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'track' })
+@Entity({ name: 'tracks' })
 export class Track {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -8,7 +8,7 @@ export class Track {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ type: 'smallint' })
   duration: number;
 
   @Column()

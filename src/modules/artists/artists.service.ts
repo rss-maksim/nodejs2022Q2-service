@@ -39,13 +39,20 @@ export class ArtistsService {
   }
 
   async findMany(ids: string[]): Promise<Artist[]> {
+    if (!ids?.length) {
+      return [];
+    }
     return this.artistsRepository.find({
       where: ids.map((id: string) => ({ id })),
     });
   }
 
   async findOne(id: string): Promise<Artist> {
-    return this.artistsRepository.findOneBy({ id });
+    const artist = await this.artistsRepository.findOneBy({ id });
+    if (!artist) {
+      throw new NotFoundException('Not found');
+    }
+    return artist;
   }
 
   async delete(id: string): Promise<void> {
@@ -54,7 +61,11 @@ export class ArtistsService {
       throw new NotFoundException('Not found');
     }
 
-    // await this.tracksService.resetArtistIdField(id);
-    // await this.albumsService.resetArtistIdField(id)
+    await this.tracksService.resetArtistIdField(id);
+    await this.albumsService.resetArtistIdField(id);
+  }
+
+  async findOneById(id: string): Promise<Artist> {
+    return await this.artistsRepository.findOneBy({ id });
   }
 }

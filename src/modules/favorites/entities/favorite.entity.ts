@@ -10,7 +10,7 @@ export enum FavoriteType {
   Album = 'album',
 }
 
-@Entity({ name: 'favorite' })
+@Entity({ name: 'favorites' })
 export class Favorite {
   @PrimaryColumn('uuid')
   id: string;

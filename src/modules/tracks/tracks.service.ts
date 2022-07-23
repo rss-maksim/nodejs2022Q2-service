@@ -35,13 +35,21 @@ export class TracksService {
   }
 
   async findMany(ids: string[]): Promise<Track[]> {
+    if (!ids?.length) {
+      return [];
+    }
+    const query = ids.map((id: string) => ({ id }));
     return this.tracksRepository.find({
-      where: ids.map((id: string) => ({ id })),
+      where: query,
     });
   }
 
   async findOne(id: string): Promise<Track> {
-    return this.tracksRepository.findOneBy({ id });
+    const track = await this.tracksRepository.findOneBy({ id });
+    if (!track) {
+      throw new NotFoundException('Not found');
+    }
+    return track;
   }
 
   async delete(id: string): Promise<void> {
@@ -52,10 +60,28 @@ export class TracksService {
   }
 
   async resetAlbumIdField(albumId: string) {
-    // return this.tracksRepository.resetAlbumIdField(albumId);
+    const track = await this.tracksRepository.findOneBy({ albumId });
+    if (!track) {
+      return;
+    }
+    return await this.tracksRepository.save({
+      ...track,
+      albumId: null,
+    });
   }
 
   async resetArtistIdField(artistId: string) {
-    // return this.tracksRepository.resetArtistIdField(artistId);
+    const track = await this.tracksRepository.findOneBy({ artistId });
+    if (!track) {
+      return;
+    }
+    return await this.tracksRepository.save({
+      ...track,
+      artistId: null,
+    });
+  }
+
+  async findOneById(id: string): Promise<Track> {
+    return await this.tracksRepository.findOneBy({ id });
   }
 }

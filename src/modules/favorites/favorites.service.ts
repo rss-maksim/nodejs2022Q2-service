@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -53,7 +54,11 @@ export class FavoritesService {
   }
 
   async addTrack(id: string): Promise<void> {
-    const track = await this.tracksService.findOne(id);
+    const existingFavorite = await this.favoritesRepository.findOneBy({ id });
+    if (existingFavorite) {
+      throw new BadRequestException();
+    }
+    const track = await this.tracksService.findOneById(id);
     if (!track) {
       throw new HttpException(
         {
@@ -77,7 +82,11 @@ export class FavoritesService {
   }
 
   async addAlbum(id: string): Promise<void> {
-    const album = await this.albumsService.findOne(id);
+    const existingFavorite = await this.favoritesRepository.findOneBy({ id });
+    if (existingFavorite) {
+      throw new BadRequestException();
+    }
+    const album = await this.albumsService.findOneById(id);
     if (!album) {
       throw new HttpException(
         {
@@ -101,7 +110,11 @@ export class FavoritesService {
   }
 
   async addArtist(id: string): Promise<void> {
-    const artist = await this.artistsService.findOne(id);
+    const existingFavorite = await this.favoritesRepository.findOneBy({ id });
+    if (existingFavorite) {
+      throw new BadRequestException();
+    }
+    const artist = await this.artistsService.findOneById(id);
     if (!artist) {
       throw new HttpException(
         {
