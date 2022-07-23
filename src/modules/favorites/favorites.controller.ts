@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 
-import { FavoritesService } from './services';
+import { FavoritesService } from './favorites.service';
 import { FavoritesResponse } from './models';
 
 @Controller('favs')
