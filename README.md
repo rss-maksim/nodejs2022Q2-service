@@ -3,13 +3,14 @@
 ## Steps to run and check service locally
 
 1. Clone repository `git clone https://github.com/rss-maksim/nodejs2022Q2-service.git`
-2. Fetch feature branch `feat/basic-rest-service` by `git fetch origin feat/basic-rest-service`
+2. Fetch feature branch `feat/setup-docker` by `git fetch origin feat/setup-docker`
 3. Switch to feature branch by `git checkout feat/basic-rest-service`
 4. Install dependencies `npm i`
-5. Run service locally by `npm start`
-6. Open `Open API` documentation in the browser [http://localhost:4000/doc](http://localhost:4000/doc/)
-7. Send the following requests using Swagger or Postman (to simplify process you might import the collection in Postman which is placed in repo in the folder named `collections`)
-8. To make sure everything's ok you can run tests `npm run test`
+5. Install [Docker](https://docs.docker.com/get-docker)
+6. Run service locally in a docker container `npm run docker:compose:up` or `docker-compose up`
+7. Open `Open API` documentation in the browser [http://localhost:4000/doc](http://localhost:4000/doc/)
+8. Send the following requests using Swagger or Postman (to simplify process you might import the collection in Postman which is placed in repo in the folder named `collections`)
+9. To make sure everything's ok you can run tests `npm run test`
 
 ## Downloading
 
