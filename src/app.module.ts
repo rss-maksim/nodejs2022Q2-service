@@ -9,17 +9,12 @@ import { TracksModule } from './modules/tracks/tracks.module';
 import { ArtistsModule } from './modules/artists/artists.module';
 import { AlbumsModule } from './modules/albums/albums.module';
 import { FavoritesModule } from './modules/favorites/favorites.module';
+import ormConfig from './ormconfig';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: process.env.DATABASE_URL,
-      entities: [],
-      synchronize: true,
-      retryAttempts: 10,
-    }),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '../.env' }),
+    TypeOrmModule.forRoot({ ...ormConfig.options, autoLoadEntities: true }),
     UsersModule,
     TracksModule,
     ArtistsModule,

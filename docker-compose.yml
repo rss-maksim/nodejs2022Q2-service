@@ -39,6 +39,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
       - DB_PORT=${DB_PORT}
+      - DATABASE_URL=${DATABASE_URL}
     volumes:
       - postgres:/var/lib/postgresql/postgres-data
       - .:/docker-entrypoint-initdb.d

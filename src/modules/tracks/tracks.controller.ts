@@ -10,15 +10,15 @@ import {
   Put,
 } from '@nestjs/common';
 import { TrackDto } from './dto';
-import { TracksService } from './services';
-import { Track } from './models';
+import { TracksService } from './tracks.service';
+import { Track } from './entities';
 
 @Controller('track')
 export class TracksController {
   constructor(private readonly tracksService: TracksService) {}
 
   @Post('')
-  create(@Body() trackDto: TrackDto): Promise<Partial<Track>> {
+  create(@Body() trackDto: TrackDto): Promise<Track> {
     return this.tracksService.create(trackDto);
   }
 
@@ -26,7 +26,7 @@ export class TracksController {
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() trackDto: TrackDto,
-  ): Promise<Partial<Track>> {
+  ): Promise<Track> {
     return this.tracksService.update(id, trackDto);
   }
 
@@ -36,10 +36,8 @@ export class TracksController {
   }
 
   @Get(':id')
-  async getById(
-    @Param('id', new ParseUUIDPipe()) id: string,
-  ): Promise<Partial<Track>> {
-    return this.tracksService.findOneById(id);
+  async getById(@Param('id', new ParseUUIDPipe()) id: string): Promise<Track> {
+    return this.tracksService.findOne(id);
   }
 
   @Delete(':id')

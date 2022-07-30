@@ -10,15 +10,15 @@ import {
   Put,
 } from '@nestjs/common';
 import { CreateUserDto, UpdatePasswordDto } from './dto';
-import { UsersService } from './services/users.service';
-import { User } from './models/User.model';
+import { UsersService } from './users.service';
+import { UserResponse } from './entities';
 
 @Controller('user')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('')
-  create(@Body() createUserDto: CreateUserDto): Promise<Partial<User>> {
+  create(@Body() createUserDto: CreateUserDto): Promise<UserResponse> {
     return this.usersService.create(createUserDto);
   }
 
@@ -26,20 +26,20 @@ export class UsersController {
   updatePassword(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() updatePasswordDto: UpdatePasswordDto,
-  ): Promise<Partial<User>> {
+  ): Promise<UserResponse> {
     return this.usersService.updatePassword(id, updatePasswordDto);
   }
 
   @Get('')
-  async getAll(): Promise<User[]> {
+  async getAll(): Promise<UserResponse[]> {
     return this.usersService.findAll();
   }
 
   @Get(':id')
   async getById(
     @Param('id', new ParseUUIDPipe()) id: string,
-  ): Promise<Partial<User>> {
-    return this.usersService.findOneById(id);
+  ): Promise<UserResponse> {
+    return this.usersService.findOne(id);
   }
 
   @Delete(':id')
