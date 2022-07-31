@@ -67,6 +67,10 @@ export class UsersService {
     return user.toResponse();
   }
 
+  async findOneByLogin(login: string): Promise<User | undefined> {
+    return await this.usersRepository.findOneBy({ login });
+  }
+
   async delete(id: string): Promise<void> {
     const result = await this.usersRepository.delete(id);
     if (result.affected === 0) {
