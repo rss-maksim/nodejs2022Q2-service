@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   VersionColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'users' })
 export class User {
@@ -26,6 +27,10 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: number;
+
+  @Column({ nullable: true })
+  @Exclude()
+  refresh_token?: string;
 
   toResponse(): UserResponse {
     const { id, login, version, createdAt, updatedAt } = this;
@@ -50,4 +55,7 @@ export class User {
   }
 }
 
-export type UserResponse = Omit<User, 'password' | 'toResponse'>;
+export type UserResponse = Omit<
+  User,
+  'password' | 'refresh_token' | 'toResponse'
+>;

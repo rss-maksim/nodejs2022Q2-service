@@ -54,6 +54,15 @@ export class UsersService {
     return User.toResponse(savedUser);
   }
 
+  async update(id: string, refreshToken: string) {
+    return this.usersRepository.update(
+      { id },
+      {
+        refresh_token: refreshToken,
+      },
+    );
+  }
+
   async findAll(): Promise<UserResponse[]> {
     const users = await this.usersRepository.find();
     return users.map((user) => user.toResponse());
@@ -65,6 +74,10 @@ export class UsersService {
       throw new NotFoundException('Not found');
     }
     return user.toResponse();
+  }
+
+  async findOneById(id: string): Promise<User | undefined> {
+    return await this.usersRepository.findOneBy({ id });
   }
 
   async findOneByLogin(login: string): Promise<User | undefined> {
