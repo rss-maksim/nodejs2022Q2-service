@@ -1,16 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import * as dotenv from 'dotenv';
 import { SwaggerModule } from '@nestjs/swagger';
 import { readFile } from 'fs/promises';
 import { parse } from 'yaml';
 import { join } from 'path';
 
 import { AppModule } from './app.module';
+import env from './env';
 
-dotenv.config({ path: join(__dirname, '..', '.env') });
-
-const port = Number(process.env.PORT) || 4000;
+const port = Number(env.PORT) || 4000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
