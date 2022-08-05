@@ -6,17 +6,21 @@ import { writeFile } from '../../utils';
 @Injectable()
 export class LoggingService implements LoggerService {
   async log(message: string) {
-    console.log(__dirname);
     console.log(message);
     await writeFile(join(__dirname, '../../../logs/logs.txt'), `${message}\n`);
   }
 
-  error(message: any, ...optionalParams: any[]) {
+  async error(message: string) {
     console.error(message);
+    await writeFile(
+      join(__dirname, '../../../logs/errors.txt'),
+      `${message}\n`,
+    );
   }
 
-  warn(message: any, ...optionalParams: any[]) {
+  async warn(message: string) {
     console.warn(message);
+    await writeFile(join(__dirname, '../../../logs/logs.txt'), `${message}\n`);
   }
 
   debug?(message: any, ...optionalParams: any[]) {
