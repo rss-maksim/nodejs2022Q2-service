@@ -7,11 +7,15 @@ import { join } from 'path';
 
 import { AppModule } from './app.module';
 import env from './env';
+import { LoggingService } from './modules/logging/logging.service';
 
 const port = Number(env.PORT) || 4000;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
+  app.useLogger(app.get(LoggingService));
   app.useGlobalPipes(new ValidationPipe());
 
   const docContent = await readFile(

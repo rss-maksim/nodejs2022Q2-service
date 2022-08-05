@@ -13,9 +13,11 @@ import { AuthService } from './auth.service';
 import { CreateUserDto, RefreshTokenDto } from '../users/dto';
 import { Public } from '../../decorators/public.decorator';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { LoggingService } from '../logging/logging.service';
 
 @Controller('auth')
 export class AuthController {
+  private readonly logger = new LoggingService();
   constructor(private authService: AuthService) {}
 
   @Public()
