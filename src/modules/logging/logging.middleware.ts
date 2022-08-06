@@ -18,15 +18,22 @@ export class AppLoggerMiddleware implements NestMiddleware {
     response.on('close', () => {
       const { statusCode } = response;
       const contentLength = response.get('content-length');
+      const time = new Date().toUTCString();
 
-      try {
-        this.logger.log(
-          `${method} ${originalUrl} ${queryStringPart}, body: ${JSON.stringify(
+      // Log all the requests
+      this.logger.log(
+        `${time}: ${method} ${originalUrl} ${queryStringPart}, body: ${JSON.stringify(
+          body,
+        )}, status: ${statusCode}, contentLength: ${contentLength}B`,
+      );
+
+      // Log the requests with errors
+      if (statusCode >= 400) {
+        this.logger.error(
+          `${time}: ${method} ${originalUrl} ${queryStringPart}, body: ${JSON.stringify(
             body,
           )}, status: ${statusCode}, contentLength: ${contentLength}B`,
         );
-      } catch (error) {
-        console.log(error);
       }
     });
 
