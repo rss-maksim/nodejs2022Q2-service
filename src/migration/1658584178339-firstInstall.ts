@@ -14,7 +14,8 @@ export class firstInstall1658584178339 implements MigrationInterface {
         "password" character varying NOT NULL,
         "version" SERIAL NOT NULL,
         "createdAt" timestamp NOT NULL DEFAULT NOW(),
-        "updatedAt" timestamp NOT NULL DEFAULT NOW()
+        "updatedAt" timestamp NOT NULL DEFAULT NOW(),
+        "refresh_token" character varying DEFAULT NULL
       )`,
     );
     await queryRunner.query(

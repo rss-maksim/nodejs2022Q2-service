@@ -12,11 +12,13 @@ import {
 import { CreateUserDto, UpdatePasswordDto } from './dto';
 import { UsersService } from './users.service';
 import { UserResponse } from './entities';
+import { Public } from '../../decorators/public.decorator';
 
 @Controller('user')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Public()
   @Post('')
   create(@Body() createUserDto: CreateUserDto): Promise<UserResponse> {
     return this.usersService.create(createUserDto);
