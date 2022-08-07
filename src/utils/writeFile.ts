@@ -14,8 +14,8 @@ export const writeFile = async (filename: string, text: string) => {
     mkdirSync(LOGS_DIRECTORY);
   } else {
     const size = getFilesizeInBytes(filename);
-    const maxSize = parseInt(env.MAX_LOG_FILE_SIZE, 10) || 1024;
-    if (size > maxSize) {
+    const maxSize = parseInt(env.MAX_LOG_FILE_SIZE, 10) || 1;
+    if (size > maxSize * 1024) {
       await promises.truncate(filename, 0);
     }
   }
