@@ -24,5 +24,3 @@ export const writeFile = async (filename: string, text: string) => {
     flag: 'a+',
   });
 };
-
-//+20 Add environment variable to specify logging level and corresponding functionality. Logs with configured level to be registered as well as other higher priority levels. For example if you set level 2, all messages with levels 0, 1 and 2 should be logged. You should use Nest.js logging levels.

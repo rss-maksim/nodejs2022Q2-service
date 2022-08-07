@@ -34,6 +34,12 @@ export class AppLoggerMiddleware implements NestMiddleware {
             body,
           )}, status: ${statusCode}, contentLength: ${contentLength}B`,
         );
+
+        this.logger.warn(
+          `${time}: ${method} ${originalUrl} ${queryStringPart}, body: ${JSON.stringify(
+            body,
+          )}, status: ${statusCode}, contentLength: ${contentLength}B`,
+        );
       }
     });
 
